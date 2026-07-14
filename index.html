@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title id="title-el"
+  data-en="HapticBreath · Eyes-Free Breathing"
+  data-zh="HapticBreath 触息 · 不用看屏幕的呼吸">
+  HapticBreath · Eyes-Free Breathing
+</title>
+
+<meta name="description" id="meta-desc"
+  data-en="HapticBreath is an eyes-free breathing app guided by haptics. Hold your iPhone, close your eyes, and follow the rhythm you can feel."
+  data-zh="HapticBreath 触息是一款通过触觉引导呼吸的 App。握住 iPhone，闭上眼睛，跟随掌心中的节奏呼吸。">
+
+<link rel="icon" href="hapticbreath_128.png">
+
+<style>
+:root{
+  --bg:#000000;
+  --surface:#0B0D0F;
+  --surface2:#111417;
+  --text:#F8FAFC;
+  --text2:#A7B3B7;
+  --muted:#64748B;
+  --accent:#10E0E8;
+  --accent2:#06B6D4;
+  --border:#1F2933;
+}
+
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(16,224,232,.16), transparent 28%),
+    radial-gradient(circle at 80% 30%, rgba(6,182,212,.12), transparent 30%),
+    var(--bg);
+  color:var(--text);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Helvetica,Arial,"PingFang SC","Microsoft Yahei",sans-serif;
+}
+
+.container{max-width:1100px;margin:0 auto;padding:40px 24px}
+
+nav{display:flex;justify-content:space-between;align-items:center}
+
+.brand{
+  font-weight:900;
+  font-size:22px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  color:var(--accent);
+  letter-spacing:.2px;
+}
+
+.brand::before{
+  content:"";
+  width:30px;
+  height:30px;
+  border-radius:9px;
+  background:
+    linear-gradient(90deg, transparent 20%, var(--accent) 20% 28%, transparent 28% 38%, var(--accent) 38% 46%, transparent 46% 54%, var(--accent) 54% 62%, transparent 62% 72%, var(--accent) 72% 80%, transparent 80%);
+  box-shadow:0 0 22px rgba(16,224,232,.45);
+  border:1px solid rgba(16,224,232,.45);
+}
+
+.nav-links{display:flex;gap:18px;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-weight:700}
+.nav-links a:hover{color:var(--accent)}
+
+.lang-switch button{
+  margin-left:8px;
+  background:transparent;
+  color:var(--text2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:8px 10px;
+  font-weight:700;
+  cursor:pointer;
+}
+.lang-switch button:hover{
+  color:var(--accent);
+  border-color:var(--accent);
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:36px;
+  margin-top:54px;
+  align-items:center;
+}
+
+.hero h1{
+  font-size:56px;
+  margin:0 0 18px;
+  line-height:1.04;
+  letter-spacing:-1.5px;
+}
+
+.hero p{
+  color:var(--text2);
+  font-size:19px;
+  line-height:1.7;
+  max-width:640px;
+}
+
+.button{
+  display:inline-block;
+  padding:13px 20px;
+  border-radius:14px;
+  background:linear-gradient(180deg,var(--accent),var(--accent2));
+  color:#001014;
+  font-weight:900;
+  text-decoration:none;
+  box-shadow:0 0 28px rgba(16,224,232,.25);
+}
+
+.button.ghost{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border);
+  box-shadow:none;
+  margin-left:10px;
+}
+
+.button.ghost:hover{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.025));
+  padding:24px;
+  border-radius:22px;
+  border:1px solid var(--border);
+  box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+.section{margin-top:86px}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+.text2{color:var(--text2);line-height:1.65}
+
+.tag{
+  display:inline-block;
+  font-size:12px;
+  padding:5px 9px;
+  background:rgba(16,224,232,.12);
+  color:var(--accent);
+  border:1px solid rgba(16,224,232,.3);
+  border-radius:999px;
+  font-weight:900;
+  letter-spacing:.4px;
+}
+
+.rhythm-box{
+  height:270px;
+  background:#050607;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(16,224,232,.22);
+  overflow:hidden;
+  position:relative;
+}
+
+.rhythm-box::before{
+  content:"";
+  position:absolute;
+  width:340px;
+  height:340px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(16,224,232,.18), transparent 58%);
+}
+
+.wave{
+  position:relative;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  height:120px;
+}
+
+.wave span{
+  display:block;
+  width:8px;
+  border-radius:999px;
+  background:var(--accent);
+  box-shadow:0 0 18px rgba(16,224,232,.6);
+}
+
+.wave span:nth-child(1){height:42px;opacity:.65}
+.wave span:nth-child(2){height:64px;opacity:.75}
+.wave span:nth-child(3){height:86px;opacity:.85}
+.wave span:nth-child(4){height:108px}
+.wave span:nth-child(5){height:86px;opacity:.85}
+.wave span:nth-child(6){height:64px;opacity:.75}
+.wave span:nth-child(7){height:42px;opacity:.65}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+.gallery img{
+  width:100%;
+  border-radius:18px;
+  background:#050607;
+  border:1px solid var(--border);
+  box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.footer{
+  margin-top:80px;
+  border-top:1px solid var(--border);
+  padding:30px 0;
+  color:var(--text2);
+}
+
+.footer strong{
+  color:var(--accent);
+}
+
+@media(max-width:760px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    font-size:42px;
+  }
+
+  nav{
+    align-items:flex-start;
+    gap:20px;
+    flex-direction:column;
+  }
+
+  .nav-links{
+    flex-wrap:wrap;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<nav>
+  <div class="brand">
+    HapticBreath
+  </div>
+
+  <div class="nav-links">
+    <a href="#features" data-en="Features" data-zh="功能"></a>
+    <a href="#privacy" data-en="Privacy" data-zh="隐私"></a>
+    <a href="#support" data-en="Support" data-zh="支持"></a>
+
+    <span class="lang-switch">
+      <button onclick="setLang('en')">EN</button>
+      <button onclick="setLang('zh')">中文</button>
+    </span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1 data-en="Breathe without looking."
+        data-zh="不用看屏幕的呼吸"></h1>
+
+    <p data-en="Hold your iPhone, close your eyes, and follow breathing rhythms you can feel. HapticBreath guides inhale, hold and exhale through subtle touch patterns — silent, private and fully local."
+       data-zh="握住 iPhone，闭上眼睛，跟随掌心中的触觉节奏呼吸。HapticBreath 触息通过细腻的触觉变化引导吸气、屏息与呼气，默认静音，完全本地。"></p>
+
+    <div style="margin-top:24px">
+      <a class="button" href="#features" data-en="Explore Features" data-zh="了解功能"></a>
+      <a class="button ghost" href="#privacy" data-en="Privacy First" data-zh="隐私优先"></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 data-en="Feel the Rhythm" data-zh="感受呼吸节奏"></h3>
+    <p class="text2"
+       data-en="Rising haptics guide inhale. A quiet pause marks hold. Fading haptics guide exhale."
+       data-zh="渐强触觉引导吸气，静默停顿代表屏息，渐弱触觉引导呼气。"></p>
+
+    <div class="rhythm-box">
+      <div class="wave">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="section">
+  <h2 data-en="Core Features" data-zh="核心功能"></h2>
+
+  <div class="grid-3" style="margin-top:20px">
+
+    <div class="card">
+      <div class="tag">Eyes-Free</div>
+      <h3 data-en="Breathing Without Watching" data-zh="不用盯着屏幕"></h3>
+      <p class="text2"
+         data-en="Start a session, hold your iPhone and close your eyes. The breathing rhythm is delivered through haptics instead of visual animation."
+         data-zh="开始练习后，只需握住手机并闭上眼睛。呼吸节奏通过触觉传递，不再依赖视觉动画。"></p>
+    </div>
+
+    <div class="card">
+      <div class="tag">Haptics</div>
+      <h3 data-en="Clear Inhale and Exhale Cues" data-zh="清晰区分吸气与呼气"></h3>
+      <p class="text2"
+         data-en="Distinct haptic cues and continuous intensity changes help you recognize inhale, hold and exhale without looking."
+         data-zh="通过不同的触觉提示和连续强度变化，闭眼也能区分吸气、屏息与呼气。"></p>
+    </div>
+
+    <div class="card">
+      <div class="tag">Modes</div>
+      <h3 data-en="Modes for Daily Moments" data-zh="适合日常场景"></h3>
+      <p class="text2"
+         data-en="Use Quick Calm, Before Exam, Before Meeting, Study Break, Before Sleep or create your own breathing pattern."
+         data-zh="支持快速平静、考试前、会议前、学习间隙、睡前，也可以创建自己的呼吸节奏。"></p>
+    </div>
+
+    <div class="card">
+      <div class="tag">Custom</div>
+      <h3 data-en="Custom Breathing Patterns" data-zh="自定义呼吸节奏"></h3>
+      <p class="text2"
+         data-en="Adjust inhale, hold, exhale, rest duration, total time, haptic strength and haptic style."
+         data-zh="自由调整吸气、屏息、呼气、停顿、总时长、触觉强度与触觉风格。"></p>
+    </div>
+
+    <div class="card">
+      <div class="tag">Silent</div>
+      <h3 data-en="Silent by Default" data-zh="默认静音"></h3>
+      <p class="text2"
+         data-en="No voice, no music and no distraction. Use it before a meeting, in bed, in a library or in public spaces."
+         data-zh="没有语音，没有音乐，不打扰他人。适合会议前、睡前、图书馆或公共场合使用。"></p>
+    </div>
+
+    <div class="card">
+      <div class="tag">Local</div>
+      <h3 data-en="Fully Local and Private" data-zh="完全本地，保护隐私"></h3>
+      <p class="text2"
+         data-en="Your breathing history, custom patterns and preferences stay on your device. No account, no cloud and no tracking."
+         data-zh="呼吸记录、自定义节奏与偏好设置都保存在本机。无需账号，不上传云端，不追踪用户。"></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SUPPORT -->
+<section id="support" class="section">
+  <div class="card">
+    <h2 data-en="Support" data-zh="支持"></h2>
+    <p class="text2"
+       data-en="If you have any questions, feedback or issues, contact us anytime."
+       data-zh="如果你有任何问题、建议或遇到使用异常，请随时联系我们。"></p>
+
+    <p>
+      <a style="color:var(--accent)" href="mailto:support@hapticbreath.app">support@hapticbreath.app</a>
+    </p>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacy" class="section">
+  <div class="card">
+    <h2 data-en="Privacy Policy" data-zh="隐私政策"></h2>
+    <p class="text2"
+       data-en="HapticBreath does not collect personal data. All breathing sessions, custom patterns and preferences are stored locally on your device. The app does not use advertising identifiers, third-party tracking SDKs or cloud accounts."
+       data-zh="HapticBreath 触息不会收集个人数据。所有呼吸练习记录、自定义节奏和偏好设置都仅保存在你的设备本地。App 不使用广告标识符，不使用第三方追踪 SDK，也不需要云端账号。"></p>
+
+    <p class="text2"
+       data-en="HapticBreath is not a medical device and does not provide medical advice, diagnosis or treatment."
+       data-zh="HapticBreath 触息不是医疗设备，不提供医疗建议、诊断或治疗。"></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <strong>HapticBreath</strong><br>
+  <span data-en="Eyes-Free Breathing · Private · Silent · Fully Local"
+        data-zh="不用看屏幕的呼吸 · 默认静音 · 完全本地 · 保护隐私"></span>
+</footer>
+
+</div>
+
+<script>
+function setLang(lang){
+  document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+
+  document.querySelectorAll("[data-en]").forEach(el=>{
+    const v = el.getAttribute(lang==="zh" ? "data-zh" : "data-en");
+    if(v) el.textContent = v;
+  });
+
+  const titleEl = document.getElementById("title-el");
+  if(titleEl){
+    document.title = titleEl.getAttribute(lang==="zh" ? "data-zh" : "data-en");
+  }
+
+  const metaDesc = document.getElementById("meta-desc");
+  if(metaDesc){
+    metaDesc.setAttribute(
+      "content",
+      metaDesc.getAttribute(lang==="zh" ? "data-zh" : "data-en")
+    );
+  }
+}
+
+setLang("en");
+</script>
+
+</body>
+</html>
